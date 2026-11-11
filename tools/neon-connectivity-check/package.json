@@ -1,0 +1,15 @@
+{
+  "name": "neon-connectivity-check",
+  "version": "1.0.0",
+  "description": "Standalone, isolated database connectivity test for Neon PostgreSQL",
+  "type": "module",
+  "main": "check.mjs",
+  "scripts": {
+    "test": "node check.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "pg": "^8.13.1"
+  }
+}
+
