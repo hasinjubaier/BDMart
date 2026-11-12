@@ -1,17 +1,16 @@
 {
+  "extends": "./packages/config/tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "lib": ["ES2022"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true
+    "baseUrl": ".",
+    "paths": {
+      "@bdmart/config": ["packages/config"],
+      "@bdmart/contracts": ["packages/contracts/src"],
+      "@bdmart/contracts/*": ["packages/contracts/src/*"],
+      "@bdmart/utils": ["packages/utils/src"],
+      "@bdmart/utils/*": ["packages/utils/src/*"],
+      "@bdmart/database": ["database/src"],
+      "@bdmart/database/*": ["database/src/*"]
+    }
   },
-  "include": ["src/**/*"]
+  "exclude": ["node_modules", "dist", ".next", ".turbo"]
 }
-

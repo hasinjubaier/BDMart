@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+// =============================================================================
+// DOMAIN 1: IDENTITY & ACCESS MANAGEMENT (IAM) — MILESTONE 2
+// =============================================================================
+
+model User {
+  id              String        @id @default(uuid()) @db.Uuid
+  phone           String        @unique @db.VarChar(20)
+  email           String?       @unique @db.VarChar(255)
+  passwordHash    String?       @map("password_hash") @db.VarChar(255)
+  status          String        @default("ACTIVE") @db.VarChar(30)
+  isPhoneVerified Boolean       @default(false) @map("is_phone_verified")
+  isEmailVerified Boolean       @default(false) @map("is_email_verified")
+  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+  deletedAt       DateTime?     @map("deleted_at") @db.Timestamptz
+
+  profile        UserProfile?
+  userRoles      UserRole[]
+  sessions       UserSession[]
+  securityEvents AccountSecurityEvent[]
+
+  @@index([phone], name: "idx_users_phone")
+  @@index([email], name: "idx_users_email")
+  @@index([status], name: "idx_users_status")
+  @@map("users")
+}
+
+model UserProfile {
+  id                String    @id @default(uuid()) @db.Uuid
+  userId            String    @unique @map("user_id") @db.Uuid
+  fullName          String    @map("full_name") @db.VarChar(150)
+  fullNameBn        String?   @map("full_name_bn") @db.VarChar(150)
+  avatarUrl         String?   @map("avatar_url") @db.VarChar(500)
+  preferredLanguage String    @default("bn") @map("preferred_language") @db.VarChar(10)
+  dateOfBirth       DateTime? @map("date_of_birth") @db.Date
+  gender            String?   @db.VarChar(20)
+  updatedAt         DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+model OtpChallenge {
+  id                String    @id @default(uuid()) @db.Uuid
+  phone             String    @db.VarChar(20)
+  otpHash           String    @map("otp_hash") @db.VarChar(255)
+  purpose           String    @default("LOGIN") @db.VarChar(30)
+  attempts          Int       @default(0)
+  maxAttempts       Int       @default(3) @map("max_attempts")
+  expiresAt         DateTime  @map("expires_at") @db.Timestamptz
+  consumedAt        DateTime? @map("consumed_at") @db.Timestamptz
+  resendAvailableAt DateTime  @map("resend_available_at") @db.Timestamptz
+  ipAddress         String?   @map("ip_address") @db.VarChar(45)
+  userAgent         String?   @map("user_agent") @db.VarChar(500)
+  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  @@index([phone, createdAt], name: "idx_otps_phone_created")
+  @@index([expiresAt], name: "idx_otps_expires")
+  @@index([phone, purpose], name: "idx_otps_phone_purpose")
+  @@index([ipAddress, createdAt], name: "idx_otps_ip_created")
+  @@map("otp_challenges")
+}
+
+model UserSession {
+  id                  String   @id @default(uuid()) @db.Uuid
+  userId              String   @map("user_id") @db.Uuid
+  familyId            String   @map("family_id") @db.Uuid
+  refreshTokenHash    String   @map("refresh_token_hash") @db.VarChar(255)
+  rotationCounter     Int      @default(1) @map("rotation_counter")
+  userAgent           String?  @map("user_agent") @db.VarChar(500)
+  ipAddress           String?  @map("ip_address") @db.VarChar(45)
+  isRevoked           Boolean  @default(false) @map("is_revoked")
+  idempotencyHash     String?  @map("idempotency_hash") @db.VarChar(64)
+  encryptedTokenCache String?  @map("encrypted_token_cache") @db.Text
+  expiresAt           DateTime @map("expires_at") @db.Timestamptz
+  createdAt           DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt           DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([familyId], name: "idx_user_sessions_family")
+  @@index([userId, refreshTokenHash], name: "idx_user_sessions_lookup")
+  @@index([expiresAt], name: "idx_user_sessions_expires")
+  @@index([userId, isRevoked], name: "idx_user_sessions_user_revoked")
+  @@index([idempotencyHash], name: "idx_user_sessions_idempotency")
+  @@map("user_sessions")
+}
+
+model Role {
+  id          String   @id @default(uuid()) @db.Uuid
+  code        String   @unique @db.VarChar(50)
+  name        String   @db.VarChar(100)
+  description String?  @db.Text
+
+  rolePermissions RolePermission[]
+  userRoles       UserRole[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String   @id @default(uuid()) @db.Uuid
+  code        String   @unique @db.VarChar(100)
+  module      String   @db.VarChar(50)
+
+  rolePermissions RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       String @map("role_id") @db.Uuid
+  permissionId String @map("permission_id") @db.Uuid
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model UserRole {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  roleId    String   @map("role_id") @db.Uuid
+  scopeType String   @default("PLATFORM") @map("scope_type") @db.VarChar(30)
+  scopeId   String?  @map("scope_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId, scopeType, scopeId], name: "uq_user_role_scope")
+  @@index([userId], name: "idx_user_roles_user")
+  @@map("user_roles")
+}
+
+model AccountSecurityEvent {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String?  @map("user_id") @db.Uuid
+  eventType String   @map("event_type") @db.VarChar(50)
+  ipAddress String?  @map("ip_address") @db.VarChar(45)
+  userAgent String?  @map("user_agent") @db.VarChar(500)
+  metadata  String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt], name: "idx_sec_events_user")
+  @@index([eventType, createdAt], name: "idx_sec_events_type")
+  @@map("account_security_events")
+}
+
+model IpRateLimit {
+  ipAddress    String   @map("ip_address") @db.VarChar(45)
+  windowBucket BigInt   @map("window_bucket")
+  requestCount Int      @default(1) @map("request_count")
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@id([ipAddress, windowBucket])
+  @@map("ip_rate_limits")
+}

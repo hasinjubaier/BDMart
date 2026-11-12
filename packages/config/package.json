@@ -1,0 +1,14 @@
+{
+  "name": "@bdmart/config",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "tsconfig.base.json",
+    "tsconfig.node.json",
+    "tsconfig.react.json",
+    "tsconfig.react-native.json",
+    "index.js"
+  ]
+}

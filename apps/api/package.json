@@ -1,0 +1,41 @@
+{
+  "name": "@bdmart/api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "tsx watch src/main.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/security.test.ts",
+    "bootstrap:admin": "tsx src/scripts/bootstrap-admin.ts",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@bdmart/contracts": "workspace:*",
+    "@bdmart/database": "workspace:*",
+    "@bdmart/utils": "workspace:*",
+    "@nestjs/common": "^11.0.11",
+    "@nestjs/core": "^11.0.11",
+    "@nestjs/jwt": "^12.0.4",
+    "@nestjs/platform-express": "^11.0.11",
+    "@nestjs/swagger": "^12.1.1",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@bdmart/config": "workspace:*",
+    "@types/bcryptjs": "^3.0.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "@types/swagger-ui-express": "^4.1.8",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.2"
+  }
+}
