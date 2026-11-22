@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1795388194999,
+      "tag": "0000_milky_mister_fear",
+      "breakpoints": true
+    }
+  ]
+}
