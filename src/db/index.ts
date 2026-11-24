@@ -16,6 +16,17 @@ export function getDb() {
 }
 
 /**
+ * Returns the raw Neon SQL client for atomic parameterized operations and transactions.
+ */
+export function getSqlClient() {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    throw new Error('DATABASE_URL is not configured. Server database access requires DATABASE_URL.');
+  }
+  return neon(databaseUrl);
+}
+
+/**
  * Health check helper to test Neon connectivity with a read-only query.
  */
 export async function testDbConnection() {

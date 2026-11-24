@@ -17,6 +17,7 @@
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
     "drizzle-orm": "^0.39.3",
+    "firebase": "^13.4.0",
     "firebase-admin": "^14.5.1",
     "next": "^15.2.1",
     "react": "^19.0.0",
@@ -31,6 +32,7 @@
     "drizzle-kit": "^0.30.5",
     "eslint": "^9.21.0",
     "eslint-config-next": "^15.2.1",
+    "playwright": "^1.65.1",
     "prettier": "^3.5.3",
     "tsx": "^4.23.15",
     "typescript": "^5.8.2",

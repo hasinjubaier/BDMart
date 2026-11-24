@@ -7,7 +7,7 @@ export const users = pgTable('users', {
   email: varchar('email', { length: 255 }),
   name: varchar('name', { length: 255 }).notNull(),
   role: varchar('role', { length: 32 }).notNull().default('buyer'),
-  locale: varchar('locale', { length: 10 }).notNull().default('bn'),
+  locale: varchar('locale', { length: 10 }).notNull().default('en'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 });

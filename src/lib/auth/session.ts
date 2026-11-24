@@ -11,7 +11,13 @@ export const SESSION_DURATION_SECONDS = 7 * 24 * 60 * 60; // 7 days
 const DEFAULT_SECRET = 'bdmart_dev_session_signing_secret_do_not_use_in_prod';
 
 function getSigningSecret(): string {
-  return process.env.SESSION_SECRET || DEFAULT_SECRET;
+  if (process.env.SESSION_SECRET) {
+    return process.env.SESSION_SECRET;
+  }
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('SECURITY_ERROR: SESSION_SECRET is required in production mode.');
+  }
+  return DEFAULT_SECRET;
 }
 
 /**

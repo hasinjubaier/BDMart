@@ -73,8 +73,11 @@ export async function verifyFirebaseIdToken(idToken: string): Promise<FirebaseUs
     throw new Error('Missing or invalid ID token.');
   }
 
-  // Handle synthetic test tokens for development and testing environments
+  // Handle synthetic test tokens strictly for development and testing environments
   if (idToken.startsWith('test-token:')) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('SECURITY_ERROR: Synthetic test tokens are strictly disallowed in production mode.');
+    }
     const parts = idToken.split(':');
     const uid = parts[1] || 'test-user-uid';
     const phone = parts[2] || '+8801700000000';

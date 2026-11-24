@@ -15,7 +15,7 @@ import type { FirebaseUserPayload, UserRecord } from './types';
  *    - Links the `firebase_uid` to the existing user row.
  *    - PRESERVES the existing `role`.
  * 3. If no matching user exists:
- *    - Inserts a new user with default role = 'buyer' and default locale = 'bn'.
+ *    - Inserts a new user with default role = 'buyer' and default locale = 'en'.
  */
 export async function syncFirebaseUser(payload: FirebaseUserPayload): Promise<UserRecord> {
   if (!payload.uid || !payload.uid.trim()) {
@@ -98,7 +98,7 @@ export async function syncFirebaseUser(payload: FirebaseUserPayload): Promise<Us
       email: payload.email || null,
       name: payload.name || 'BD Mart Customer',
       role: 'buyer', // Default role for first-time buyers
-      locale: 'bn',  // Default locale is Bengali
+      locale: 'en',  // Default locale is English
     })
     .returning();
 

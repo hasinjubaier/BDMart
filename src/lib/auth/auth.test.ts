@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 import { eq } from 'drizzle-orm';
 import { getDb } from '@/db';
 import { users } from '@/db/schema';
@@ -6,6 +6,7 @@ import { assertDevelopmentTarget } from '@/db/verify-target';
 import { syncFirebaseUser } from './sync-user';
 import { createSessionToken, verifySessionToken } from './session';
 import { requireRole } from './require-role';
+import { verifyFirebaseIdToken } from './admin';
 import { AuthError } from './types';
 
 describe('BD Mart Authentication & RBAC Test Suite', () => {
@@ -29,7 +30,7 @@ describe('BD Mart Authentication & RBAC Test Suite', () => {
   const testName = 'Test Automated Buyer';
   let createdUserId: string;
 
-  it('1. First sign-in creates user with default buyer role and bn locale', async () => {
+  it('1. First sign-in creates user with default buyer role and en locale', async () => {
     const user = await syncFirebaseUser({
       uid: testUid,
       phone: testPhone,
@@ -41,7 +42,7 @@ describe('BD Mart Authentication & RBAC Test Suite', () => {
     expect(user.id).toBeDefined();
     expect(user.firebaseUid).toBe(testUid);
     expect(user.role).toBe('buyer'); // Default role MUST be buyer
-    expect(user.locale).toBe('bn'); // Default locale MUST be Bengali
+    expect(user.locale).toBe('en'); // Default locale MUST be English
     expect(user.name).toBe(testName);
     expect(user.phone).toBe(testPhone);
 
@@ -154,5 +155,46 @@ describe('BD Mart Authentication & RBAC Test Suite', () => {
     expect(authorizedUser).toBeDefined();
     expect(authorizedUser.id).toBe(createdUserId);
     expect(authorizedUser.role).toBe('admin');
+  });
+
+  it('7. Production-mode check: Synthetic test token fallback cannot activate in production', async () => {
+    try {
+      vi.stubEnv('NODE_ENV', 'production');
+      await expect(
+        verifyFirebaseIdToken('test-token:uid:phone:role:name')
+      ).rejects.toThrowError(/Synthetic test tokens are strictly disallowed in production mode/);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+  });
+
+  it('8. Production-mode check: Missing SESSION_SECRET fails closed in production', () => {
+    try {
+      vi.stubEnv('NODE_ENV', 'production');
+      vi.stubEnv('SESSION_SECRET', '');
+      delete process.env.SESSION_SECRET;
+      expect(() =>
+        createSessionToken({
+          id: 'test-id',
+          firebaseUid: 'test-uid',
+          role: 'buyer',
+        })
+      ).toThrowError(/SESSION_SECRET is required in production mode/);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+  });
+
+  it('9. Production-mode check: Missing Firebase Admin credentials fails closed with descriptive error', async () => {
+    try {
+      vi.stubEnv('NODE_ENV', 'production');
+      vi.stubEnv('FIREBASE_ADMIN_CREDENTIALS', '');
+      delete process.env.FIREBASE_ADMIN_CREDENTIALS;
+      await expect(
+        verifyFirebaseIdToken('sample-real-looking-jwt-token')
+      ).rejects.toThrowError(/FIREBASE_ADMIN_NOT_CONFIGURED/);
+    } finally {
+      vi.unstubAllEnvs();
+    }
   });
 });

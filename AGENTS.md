@@ -20,7 +20,7 @@ This document defines the strict engineering constraints, tech stack boundaries,
 - **Courier Logistics:** Pathao / Steadfast logistics courier adapter pattern.
 - **AI Integration:** Claude API invoked strictly server-side. Prompts versioned in `lib/ai/prompts/`. User inputs isolated from system instructions to prevent prompt injection. Outputs parsed and validated via Zod. Graceful fallback on AI outage or rate-limiting.
 - **Testing:** Vitest for unit/integration tests; Playwright for desktop and mobile viewport E2E tests; `@axe-core/playwright` for automated WCAG accessibility audits.
-- **Internationalization:** `next-intl` with Bengali (`bn`) as the primary default and English (`en`) as secondary. Zero hardcoded UI text; all labels stored in `messages/bn.json` and `messages/en.json`.
+- **Language & Localization:** English is the sole language for BD Mart's user interface, source code, comments, test descriptions, and project documentation. Default application locale is English ('en'). All UI copy, labels, placeholders, errors, and system messages are in English.
 - **Financial Math:** All monetary amounts represented in integer **poisha** (paisa; 1 BDT = 100 poisha). Storing or calculating money in floating-point format (`float`/`double`) is strictly forbidden.
 - **Timezone:** Timestamps stored in UTC in the database, rendered to users in `Asia/Dhaka` timezone.
 

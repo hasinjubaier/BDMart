@@ -65,7 +65,7 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       email: 'seller.bengal@bdmart.com.bd',
       name: 'Mohammad Ali',
       role: 'seller',
-      locale: 'bn',
+      locale: 'en',
     },
     {
       id: 'a0000000-0000-4000-8000-000000000002',
@@ -74,7 +74,7 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       email: 'seller.jamdani@bdmart.com.bd',
       name: 'Farhana Yasmin',
       role: 'seller',
-      locale: 'bn',
+      locale: 'en',
     },
     {
       id: 'a0000000-0000-4000-8000-000000000003',
@@ -83,7 +83,7 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       email: 'procurement@dhakaretailers.com',
       name: 'Rafiqul Islam',
       role: 'business_buyer',
-      locale: 'bn',
+      locale: 'en',
     },
     {
       id: 'a0000000-0000-4000-8000-000000000004',
@@ -92,7 +92,7 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       email: 'tanvir.hossain@gmail.com',
       name: 'Tanvir Hossain',
       role: 'buyer',
-      locale: 'bn',
+      locale: 'en',
     },
     {
       id: 'a0000000-0000-4000-8000-000000000005',
@@ -101,7 +101,7 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       email: 'admin@bdmart.com.bd',
       name: 'BD Mart Platform Admin',
       role: 'admin',
-      locale: 'bn',
+      locale: 'en',
     },
   ];
 
@@ -190,70 +190,70 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
     {
       id: 'e0000000-0000-4000-8000-000000000001',
       slug: 'jute-eco-crafts',
-      nameBn: 'পরিবেশবান্ধব পাটশিল্প',
+      nameBn: 'Jute & Eco Crafts',
       nameEn: 'Jute & Eco Crafts',
       sortOrder: 1,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000002',
       slug: 'handlooms-jamdani',
-      nameBn: 'ঐতিহ্যবাহী তাঁত ও জামদানি',
+      nameBn: 'Traditional Handlooms & Jamdani',
       nameEn: 'Traditional Handlooms & Jamdani',
       sortOrder: 2,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000003',
       slug: 'grocery-food',
-      nameBn: 'মুদি ও দেশীয় খাদ্যপণ্য',
+      nameBn: 'Grocery & Native Essentials',
       nameEn: 'Grocery & Native Essentials',
       sortOrder: 3,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000004',
       slug: 'rmg-apparel',
-      nameBn: 'তৈরি পোশাক ও ফ্যাশন',
+      nameBn: 'RMG & Apparel',
       nameEn: 'RMG & Apparel',
       sortOrder: 4,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000005',
       slug: 'leather-goods',
-      nameBn: 'খাঁটি চামড়ার পণ্য',
+      nameBn: 'Pure Leather Goods',
       nameEn: 'Pure Leather Goods',
       sortOrder: 5,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000006',
       slug: 'agriculture-spices',
-      nameBn: 'কৃষি ও খাঁটি মশলা',
+      nameBn: 'Agriculture & Organic Spices',
       nameEn: 'Agriculture & Organic Spices',
       sortOrder: 6,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000007',
       slug: 'electronics-gadgets',
-      nameBn: 'ইলেকট্রনিক্স ও গ্যাজেটস',
+      nameBn: 'Electronics & Smart Gadgets',
       nameEn: 'Electronics & Smart Gadgets',
       sortOrder: 7,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000008',
       slug: 'home-living',
-      nameBn: 'গৃহস্থালি ও কাঁসা-পিতল শিল্প',
+      nameBn: 'Home Living & Brass Crafts',
       nameEn: 'Home Living & Brass Crafts',
       sortOrder: 8,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000009',
       slug: 'herbal-care',
-      nameBn: 'হার্বাল ও ভেষজ রূপচর্চা',
+      nameBn: 'Natural Beauty & Herbal Care',
       nameEn: 'Natural Beauty & Herbal Care',
       sortOrder: 9,
     },
     {
       id: 'e0000000-0000-4000-8000-000000000010',
       slug: 'industrial-hardware',
-      nameBn: 'শিল্প ও নির্মাণ সরঞ্জাম',
+      nameBn: 'Industrial Hardware & Safety',
       nameEn: 'Industrial Hardware & Safety',
       sortOrder: 10,
     },
@@ -294,19 +294,19 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 0,
       sellerId: sellerBengalId,
       slug: 'eco-jute-tote-bag',
-      titleBn: 'পরিবেশবান্ধব পাটের প্রিমিয়াম টোট ব্যাগ',
+      titleBn: 'Premium Eco Handcrafted Jute Tote Bag',
       titleEn: 'Premium Eco Handcrafted Jute Tote Bag',
       desc: 'Handmade biodegradable golden jute tote bag crafted by rural artisans in Jamalpur. High durability with reinforced cotton handles.',
-      basePrice: 35000n, // ৳350
+      basePrice: 35000n, // BDT 350
       moq: 50,
       isB2b: true,
       sku: 'SKU-JUTE-BAG-001',
       stock: 105,
       attributes: { color: 'Natural Golden', size: 'Large', material: '100% Export Grade Jute' },
       tiers: [
-        { minQty: 50, unitPrice: 28000n },  // ৳280
-        { minQty: 100, unitPrice: 22000n }, // ৳220
-        { minQty: 500, unitPrice: 18000n }, // ৳180
+        { minQty: 50, unitPrice: 28000n },  // BDT 280
+        { minQty: 100, unitPrice: 22000n }, // BDT 220
+        { minQty: 500, unitPrice: 18000n }, // BDT 180
       ],
       image: '/products/jute-bag-natural.webp',
     },
@@ -315,10 +315,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 0,
       sellerId: sellerBengalId,
       slug: 'braided-jute-floor-mat',
-      titleBn: 'হাতে বোনা প্রাকৃতিক পাটের ফ্লোর ম্যাট',
+      titleBn: 'Hand-braided Natural Jute Floor Rug (3x5 ft)',
       titleEn: 'Hand-braided Natural Jute Floor Rug (3x5 ft)',
       desc: 'Eco-friendly handwoven braided circular floor mat crafted from bleached and dyed golden jute fibers.',
-      basePrice: 85000n, // ৳850
+      basePrice: 85000n, // BDT 850
       moq: 20,
       isB2b: true,
       sku: 'SKU-JUTE-MAT-002',
@@ -335,10 +335,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 0,
       sellerId: sellerBengalId,
       slug: 'jute-burlap-hessian-sack',
-      titleBn: 'ভারী কাজের এক্সপোর্ট কোয়ালিটি চটের বস্তা (৫০ কেজি)',
+      titleBn: 'Heavy Duty Export Grade Burlap Sack (50kg Capacity)',
       titleEn: 'Heavy Duty Export Grade Burlap Sack (50kg Capacity)',
       desc: 'Standard agricultural packaging hessian burlap bags for food grain, potato, and agricultural storage.',
-      basePrice: 12000n, // ৳120
+      basePrice: 12000n, // BDT 120
       moq: 100,
       isB2b: true,
       sku: 'SKU-JUTE-SACK-003',
@@ -356,10 +356,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 0,
       sellerId: sellerBengalId,
       slug: 'jute-table-runner-set',
-      titleBn: 'নকশী পাটের ডাইনিং টেবিল রানার ও প্লেসম্যাট সেট',
+      titleBn: 'Artisan Decorative Jute Table Runner & Placemat Set',
       titleEn: 'Artisan Decorative Jute Table Runner & Placemat Set',
       desc: 'Handcrafted floral embroidered table runner with 6 matching placemats for festive home dining.',
-      basePrice: 45000n, // ৳450
+      basePrice: 45000n, // BDT 450
       moq: 1,
       isB2b: false,
       sku: 'SKU-JUTE-RUN-004',
@@ -372,10 +372,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 0,
       sellerId: sellerBengalId,
       slug: 'jute-rope-plant-basket',
-      titleBn: 'পাটের দড়ির তৈরি লন্ড্রি ও প্ল্যান্টার বাস্কেট',
+      titleBn: 'Cylindrical Jute Rope Storage & Planter Basket',
       titleEn: 'Cylindrical Jute Rope Storage & Planter Basket',
       desc: 'Sturdy cotton and jute rope stitched indoor storage basket with soft carrying handles.',
-      basePrice: 32000n, // ৳320
+      basePrice: 32000n, // BDT 320
       moq: 15,
       isB2b: true,
       sku: 'SKU-JUTE-BASK-005',
@@ -394,10 +394,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 1,
       sellerId: sellerJamdaniId,
       slug: 'dhakai-jamdani-saree-84count',
-      titleBn: 'ঐতিহ্যবাহী ঢাকাই জামদানি শাড়ি (৮৪ কাউন্ট)',
+      titleBn: 'Authentic Handwoven Heritage Dhakai Jamdani Saree (84 Count)',
       titleEn: 'Authentic Handwoven Heritage Dhakai Jamdani Saree (84 Count)',
       desc: 'Handwoven in Narayanganj by master weavers over 45 days. Exquisite traditional floral buta motifs.',
-      basePrice: 850000n, // ৳8,500
+      basePrice: 850000n, // BDT 8,500
       moq: 1,
       isB2b: false,
       sku: 'SKU-JAMDANI-006',
@@ -410,10 +410,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 1,
       sellerId: sellerJamdaniId,
       slug: 'tangail-pure-cotton-saree',
-      titleBn: 'টাঙ্গাইল তাঁতের খাঁটি সুতি শাড়ি',
+      titleBn: 'Traditional Tangail Handloom Pure Cotton Saree',
       titleEn: 'Traditional Tangail Handloom Pure Cotton Saree',
       desc: 'Cool, breathable summer cotton saree handwoven on traditional pit looms in Pathrail, Tangail.',
-      basePrice: 185000n, // ৳1,850
+      basePrice: 185000n, // BDT 1,850
       moq: 10,
       isB2b: true,
       sku: 'SKU-TANGAIL-007',
@@ -430,10 +430,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 1,
       sellerId: sellerJamdaniId,
       slug: 'rajshahi-pure-silk-saree',
-      titleBn: 'রাজশাহী মালবেরি পিওর সিল্ক শাড়ি',
+      titleBn: 'Premium Rajshahi Mulberry Pure Silk Saree',
       titleEn: 'Premium Rajshahi Mulberry Pure Silk Saree',
       desc: 'Certified Rajshahi pure mulberry silk with rich printed pallu and glossy handloom texture.',
-      basePrice: 950000n, // ৳9,500
+      basePrice: 950000n, // BDT 9,500
       moq: 1,
       isB2b: false,
       sku: 'SKU-SILK-008',
@@ -446,10 +446,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 1,
       sellerId: sellerJamdaniId,
       slug: 'khadi-cotton-punjabi',
-      titleBn: 'কুমিল্লার খাদি খাঁটি সুতি পুরুষদের পাঞ্জাবি',
+      titleBn: 'Hand-spun Cumilla Khadi Casual Men Punjabi',
       titleEn: 'Hand-spun Cumilla Khadi Casual Men Punjabi',
       desc: 'Eco-conscious hand-spun, handwoven traditional Khadi kurta with shell button placket.',
-      basePrice: 165000n, // ৳1,650
+      basePrice: 165000n, // BDT 1,650
       moq: 20,
       isB2b: true,
       sku: 'SKU-KHADI-009',
@@ -466,10 +466,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 1,
       sellerId: sellerJamdaniId,
       slug: 'manipuri-handloom-shawl',
-      titleBn: 'সিলেটি মণিপুরী তাঁতের উষ্ণ চাদর',
+      titleBn: 'Handwoven Sylheti Manipuri Pattern Winter Shawl',
       titleEn: 'Handwoven Sylheti Manipuri Pattern Winter Shawl',
       desc: 'Intricate ethnic geometric patterns woven on traditional loin-looms by Manipuri artisans in Moulvibazar.',
-      basePrice: 145000n, // ৳1,450
+      basePrice: 145000n, // BDT 1,450
       moq: 1,
       isB2b: false,
       sku: 'SKU-SHAWL-010',
@@ -484,10 +484,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 2,
       sellerId: sellerBengalId,
       slug: 'dinajpur-chinigura-rice-5kg',
-      titleBn: 'দিনাজপুরের সুগন্ধি চিনিগুঁড়া চাল (৫ কেজি)',
+      titleBn: 'Aromatic Dinajpur Premium Chinigura Rice (5kg Bag)',
       titleEn: 'Aromatic Dinajpur Premium Chinigura Rice (5kg Bag)',
       desc: 'Naturally aged sweet-scented small grain Chinigura rice, ideal for royal biryani, polao, and festive payesh.',
-      basePrice: 65000n, // ৳650
+      basePrice: 65000n, // BDT 650
       moq: 10,
       isB2b: true,
       sku: 'SKU-RICE-011',
@@ -504,10 +504,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 2,
       sellerId: sellerBengalId,
       slug: 'pure-sundarbans-wild-honey-500g',
-      titleBn: 'সুন্দরবনের খাঁটি প্রাকৃতিক খলিশা মধু (৫০০ গ্রাম)',
+      titleBn: 'Pure Natural Raw Sundarbans Mangrove Honey (500g Glass Jar)',
       titleEn: 'Pure Natural Raw Sundarbans Mangrove Honey (500g Glass Jar)',
       desc: 'Raw unprocessed wild honey collected directly from Sundarbans mangrove forests during blooming season.',
-      basePrice: 75000n, // ৳750
+      basePrice: 75000n, // BDT 750
       moq: 12,
       isB2b: true,
       sku: 'SKU-HONEY-012',
@@ -524,10 +524,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 2,
       sellerId: sellerBengalId,
       slug: 'cold-pressed-mustard-oil-1l',
-      titleBn: 'কাঠের ঘানিতে ভাঙা খাঁটি সরিষার তেল (১ লিটার)',
+      titleBn: 'Pure Wooden Ghani Cold-Pressed Mustard Oil (1L Bottle)',
       titleEn: 'Pure Wooden Ghani Cold-Pressed Mustard Oil (1L Bottle)',
       desc: 'Traditional cold-pressed pungent mustard oil extracted at low temperature preserving natural aroma and allyl isothiocyanate.',
-      basePrice: 32000n, // ৳320
+      basePrice: 32000n, // BDT 320
       moq: 24,
       isB2b: true,
       sku: 'SKU-OIL-013',
@@ -544,10 +544,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 2,
       sellerId: sellerBengalId,
       slug: 'natore-kachagolla-box-1kg',
-      titleBn: 'নাটোরের বিখ্যাত আসল কাঁচাগোল্লা (১ কেজি)',
+      titleBn: 'Traditional Authentic Natore Special Kachagolla (1kg Gift Box)',
       titleEn: 'Traditional Authentic Natore Special Kachagolla (1kg Gift Box)',
       desc: 'Freshly prepared traditional sweetmeat from pure cow milk chhana, packed in hygiene-sealed gift box.',
-      basePrice: 55000n, // ৳550
+      basePrice: 55000n, // BDT 550
       moq: 1,
       isB2b: false,
       sku: 'SKU-SWEET-014',
@@ -560,10 +560,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 2,
       sellerId: sellerBengalId,
       slug: 'magura-khejur-gur-patali-1kg',
-      titleBn: 'মাগুরার খাঁটি শীতকালীন খেজুর পাটালি গুড় (১ কেজি)',
+      titleBn: 'Pure Winter Date Palm Jaggery Patali Gur (1kg Cake)',
       titleEn: 'Pure Winter Date Palm Jaggery Patali Gur (1kg Cake)',
       desc: 'Unadulterated crystal date palm jaggery boiled over wood fire in traditional clay ovens in Magura.',
-      basePrice: 48000n, // ৳480
+      basePrice: 48000n, // BDT 480
       moq: 10,
       isB2b: true,
       sku: 'SKU-GUR-015',
@@ -582,10 +582,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 3,
       sellerId: sellerJamdaniId,
       slug: 'combed-cotton-tshirt-crew',
-      titleBn: '১৮০ জিএসএম প্রিমিয়াম খাঁটি সুতি ক্রু-নেক টি-শার্ট',
+      titleBn: '180 GSM 100% Combed Cotton Solid Crew T-Shirt',
       titleEn: '180 GSM 100% Combed Cotton Solid Crew T-Shirt',
       desc: 'Export surplus ultra-soft pre-shrunk combed cotton t-shirt with lycra ribbed collar.',
-      basePrice: 38000n, // ৳380
+      basePrice: 38000n, // BDT 380
       moq: 50,
       isB2b: true,
       sku: 'SKU-TSHIRT-016',
@@ -603,10 +603,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 3,
       sellerId: sellerJamdaniId,
       slug: 'denim-jeans-regular-fit',
-      titleBn: 'রপ্তানিমুখী স্ট্রেচ ব্লু ডেনিম জিন্স প্যান্ট',
+      titleBn: 'Export Quality Indigo Washed Denim Jeans (Regular Fit)',
       titleEn: 'Export Quality Indigo Washed Denim Jeans (Regular Fit)',
       desc: 'Heavy 12.5 oz comfort stretch denim with durable YKK zipper and triple-needle chain stitching.',
-      basePrice: 125000n, // ৳1,250
+      basePrice: 125000n, // BDT 1,250
       moq: 25,
       isB2b: true,
       sku: 'SKU-JEANS-017',
@@ -623,10 +623,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 3,
       sellerId: sellerJamdaniId,
       slug: 'women-viscose-kurti',
-      titleBn: 'মহিলাদের আরামদায়ক প্রিন্টেড ভিসকোস কুর্তি',
+      titleBn: 'Casual Printed Viscose Flared Kurti for Women',
       titleEn: 'Casual Printed Viscose Flared Kurti for Women',
       desc: 'Lightweight breathable rayon viscose stitched kurti with modern block print motifs.',
-      basePrice: 85000n, // ৳850
+      basePrice: 85000n, // BDT 850
       moq: 1,
       isB2b: false,
       sku: 'SKU-KURTI-018',
@@ -639,10 +639,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 3,
       sellerId: sellerJamdaniId,
       slug: 'heavy-fleece-hoodie',
-      titleBn: '৩২০ জিএসএম ভারী ফ্লিস উইন্টার পুলওভার হুডি',
+      titleBn: '320 GSM Winter Fleece Pullover Hoodie (Unisex)',
       titleEn: '320 GSM Winter Fleece Pullover Hoodie (Unisex)',
       desc: 'Brushed inside thermal cotton fleece pullover hoodie with front kangaroo pocket.',
-      basePrice: 145000n, // ৳1,450
+      basePrice: 145000n, // BDT 1,450
       moq: 20,
       isB2b: true,
       sku: 'SKU-HOODIE-019',
@@ -659,10 +659,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 3,
       sellerId: sellerJamdaniId,
       slug: 'cotton-polo-shirt-solid',
-      titleBn: '২২০ জিএসএম পিক কটন ক্লাসিক পোলো শার্ট',
+      titleBn: '220 GSM Pique Cotton Classic Polo Shirt',
       titleEn: '220 GSM Pique Cotton Classic Polo Shirt',
       desc: 'Export grade double-pique knitted polo shirt with mother-of-pearl buttons and flat-knit collar.',
-      basePrice: 58000n, // ৳580
+      basePrice: 58000n, // BDT 580
       moq: 30,
       isB2b: true,
       sku: 'SKU-POLO-020',
@@ -681,10 +681,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 4,
       sellerId: sellerBengalId,
       slug: 'full-grain-leather-wallet',
-      titleBn: 'খাঁটি গরুর চামড়ার তৈরি বাইফোল্ড ওয়ালেট',
+      titleBn: 'Genuine Full Grain Bifold Leather Wallet with RFID Shield',
       titleEn: 'Genuine Full Grain Bifold Leather Wallet with RFID Shield',
       desc: 'Top grain cowhide leather handcrafted wallet featuring 8 card slots, dual currency sleeves, and RFID protection.',
-      basePrice: 95000n, // ৳950
+      basePrice: 95000n, // BDT 950
       moq: 20,
       isB2b: true,
       sku: 'SKU-WALLET-021',
@@ -701,10 +701,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 4,
       sellerId: sellerBengalId,
       slug: 'leather-executive-laptop-bag',
-      titleBn: 'এক্সিকিউটিভ খাঁটি চামড়ার ল্যাপটপ ব্রিফকেস',
+      titleBn: 'Handcrafted Formal Cowhide Leather Laptop Briefcase (15.6 inch)',
       titleEn: 'Handcrafted Formal Cowhide Leather Laptop Briefcase (15.6 inch)',
       desc: 'Premium vegetable-tanned leather briefcase with padded laptop sleeve, antique brass hardware, and detachable strap.',
-      basePrice: 420000n, // ৳4,200
+      basePrice: 420000n, // BDT 4,200
       moq: 5,
       isB2b: true,
       sku: 'SKU-LAPBAG-022',
@@ -721,10 +721,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 4,
       sellerId: sellerBengalId,
       slug: 'leather-formal-oxford-shoes',
-      titleBn: 'হাতে সেলাই করা খাঁটি চামড়ার ফরমাল অক্সফোর্ড জুতা',
+      titleBn: 'Men Pure Leather Hand-Stitched Oxford Shoes',
       titleEn: 'Men Pure Leather Hand-Stitched Oxford Shoes',
       desc: 'Handmade Goodyear welted full grain leather formal shoes with cushioned leather insole and non-slip rubber heel.',
-      basePrice: 385000n, // ৳3,850
+      basePrice: 385000n, // BDT 3,850
       moq: 1,
       isB2b: false,
       sku: 'SKU-SHOES-023',
@@ -737,10 +737,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 4,
       sellerId: sellerBengalId,
       slug: 'leather-reversible-belt',
-      titleBn: 'খাঁটি চামড়ার রিভার্সিবল ফরমাল বেল্ট (কালো/বাদামী)',
+      titleBn: 'Genuine Leather Formal Reversible Belt (Black/Brown)',
       titleEn: 'Genuine Leather Formal Reversible Belt (Black/Brown)',
       desc: 'Single piece 35mm wide full grain leather belt with rotating alloy buckle for versatile formal styling.',
-      basePrice: 65000n, // ৳650
+      basePrice: 65000n, // BDT 650
       moq: 25,
       isB2b: true,
       sku: 'SKU-BELT-024',
@@ -757,10 +757,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 4,
       sellerId: sellerBengalId,
       slug: 'leather-travel-duffel-bag',
-      titleBn: 'ভিন্টেজ স্টাইলের খাঁটি চামড়ার ট্রাভেল ডাফেল ব্যাগ',
+      titleBn: 'Vintage Rugged Full-Grain Leather Travel Duffel (45L)',
       titleEn: 'Vintage Rugged Full-Grain Leather Travel Duffel (45L)',
       desc: 'Spacious weekend travel duffel bag made of distressed oil-pull up cowhide leather with heavy cotton canvas lining.',
-      basePrice: 550000n, // ৳5,500
+      basePrice: 550000n, // BDT 5,500
       moq: 1,
       isB2b: false,
       sku: 'SKU-DUFFEL-025',
@@ -775,10 +775,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 5,
       sellerId: sellerBengalId,
       slug: 'organic-kurigram-turmeric-powder-500g',
-      titleBn: 'কুড়িগ্রামের অর্গানিক খাঁটি হলুদের গুঁড়া (৫০০ গ্রাম)',
+      titleBn: 'Pure Stone-Ground Kurigram Organic Turmeric (500g)',
       titleEn: 'Pure Stone-Ground Kurigram Organic Turmeric (500g)',
       desc: 'High-curcumin organic turmeric sun-dried and slowly stone ground without artificial lead chromate polish.',
-      basePrice: 24000n, // ৳240
+      basePrice: 24000n, // BDT 240
       moq: 20,
       isB2b: true,
       sku: 'SKU-TURM-026',
@@ -795,10 +795,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 5,
       sellerId: sellerBengalId,
       slug: 'panchagarh-organic-black-tea-400g',
-      titleBn: 'পঞ্চগড়ের সমতল ভূমির অর্গানিক ব্ল্যাক টি (৪০০ গ্রাম)',
+      titleBn: 'High Grown Organic CTC Black Tea Leaf (400g Foil Pack)',
       titleEn: 'High Grown Organic CTC Black Tea Leaf (400g Foil Pack)',
       desc: 'Pesticide-free bold CTC tea from flatland organic gardens of Panchagarh with rich liquor and malty flavor.',
-      basePrice: 35000n, // ৳350
+      basePrice: 35000n, // BDT 350
       moq: 24,
       isB2b: true,
       sku: 'SKU-TEA-027',
@@ -815,10 +815,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 5,
       sellerId: sellerBengalId,
       slug: 'organic-chia-seeds-500g',
-      titleBn: 'আমদানিকৃত প্রিমিয়াম গ্রেড চিয়া সিডস (৫০০ গ্রাম)',
+      titleBn: 'Premium Cleaned Superfood Chia Seeds (500g Zip Pack)',
       titleEn: 'Premium Cleaned Superfood Chia Seeds (500g Zip Pack)',
       desc: 'Triple-cleaned raw black chia seeds loaded with plant omega-3, dietary fiber, and essential minerals.',
-      basePrice: 45000n, // ৳450
+      basePrice: 45000n, // BDT 450
       moq: 1,
       isB2b: false,
       sku: 'SKU-CHIA-028',
@@ -831,10 +831,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 5,
       sellerId: sellerBengalId,
       slug: 'dry-red-chilli-powder-500g',
-      titleBn: 'বগুড়ার ঝাল লাল মরিচের গুঁড়া (৫০০ গ্রাম)',
+      titleBn: 'Sun-Dried Bogura Hot Red Chilli Powder (500g)',
       titleEn: 'Sun-Dried Bogura Hot Red Chilli Powder (500g)',
       desc: 'Authentic fiery red chilli dried under northern sunshine and hygienically pulverized for bold cooking color and heat.',
-      basePrice: 28000n, // ৳280
+      basePrice: 28000n, // BDT 280
       moq: 20,
       isB2b: true,
       sku: 'SKU-CHILLI-029',
@@ -851,10 +851,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 5,
       sellerId: sellerBengalId,
       slug: 'organic-kalijira-seed-250g',
-      titleBn: 'পরিষ্কার অর্গানিক কালোজিরা (২৫০ গ্রাম)',
+      titleBn: 'Cleaned Natural Organic Black Cumin / Nigella Seed (250g)',
       titleEn: 'Cleaned Natural Organic Black Cumin / Nigella Seed (250g)',
       desc: 'Machine cleaned small-grain natural black seed with high thymoquinone essential oil profile.',
-      basePrice: 22000n, // ৳220
+      basePrice: 22000n, // BDT 220
       moq: 15,
       isB2b: true,
       sku: 'SKU-KALIJ-030',
@@ -873,10 +873,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 6,
       sellerId: sellerJamdaniId,
       slug: 'fast-charging-power-bank-20000mah',
-      titleBn: '২২.৫ ওয়াট ফাস্ট চার্জিং ২০,০০০ এমএএইচ পাওয়ার ব্যাংক',
+      titleBn: '22.5W Super Fast Charging 20,000mAh Power Bank with Digital Display',
       titleEn: '22.5W Super Fast Charging 20,000mAh Power Bank with Digital Display',
       desc: 'High-density Li-Polymer battery pack with dual USB-A QC 3.0 and bidirectional Type-C 20W PD output.',
-      basePrice: 185000n, // ৳1,850
+      basePrice: 185000n, // BDT 1,850
       moq: 10,
       isB2b: true,
       sku: 'SKU-PWRBNK-031',
@@ -893,10 +893,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 6,
       sellerId: sellerJamdaniId,
       slug: 'tws-wireless-earbuds-anc',
-      titleBn: 'অ্যাক্টিভ নয়েজ ক্যানসেলিং ট্রু ওয়্যারলেস এয়ারবাডস',
+      titleBn: 'Active Noise Cancelling Bluetooth 5.3 TWS Earbuds (32h Playtime)',
       titleEn: 'Active Noise Cancelling Bluetooth 5.3 TWS Earbuds (32h Playtime)',
       desc: 'Hybrid 35dB ANC earphones with 10mm titanium composite dynamic drivers and quad-mic ENC call clarity.',
-      basePrice: 165000n, // ৳1,650
+      basePrice: 165000n, // BDT 1,650
       moq: 1,
       isB2b: false,
       sku: 'SKU-EARBUD-032',
@@ -909,10 +909,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 6,
       sellerId: sellerJamdaniId,
       slug: 'braided-type-c-cable-65w',
-      titleBn: '৬৫ ওয়াট পিডি ব্রেইডেড ফাস্ট চার্জিং ইউএসবি-সি ক্যাবল (১.২ মি)',
+      titleBn: 'High-Speed 65W PD Braided Fast Charging USB-C Cable (1.2m)',
       titleEn: 'High-Speed 65W PD Braided Fast Charging USB-C Cable (1.2m)',
       desc: 'Reinforced nylon braided Type-C to Type-C cable with E-marker chip supporting high-speed laptop and phone fast charging.',
-      basePrice: 25000n, // ৳250
+      basePrice: 25000n, // BDT 250
       moq: 50,
       isB2b: true,
       sku: 'SKU-CABLE-033',
@@ -929,10 +929,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 6,
       sellerId: sellerJamdaniId,
       slug: 'smart-health-fitness-band',
-      titleBn: 'এমোলেড ডিসপ্লে সমৃদ্ধ স্মার্ট ফিটনেস ট্র্যাকার ব্যান্ড',
+      titleBn: 'AMOLED Display Heart Rate & SpO2 Fitness Tracker Band',
       titleEn: 'AMOLED Display Heart Rate & SpO2 Fitness Tracker Band',
       desc: '1.47-inch colorful AMOLED fitness band with continuous heart rate, blood oxygen monitor, and 5 ATM water resistance.',
-      basePrice: 245000n, // ৳2,450
+      basePrice: 245000n, // BDT 2,450
       moq: 1,
       isB2b: false,
       sku: 'SKU-FITBAND-034',
@@ -945,10 +945,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 6,
       sellerId: sellerJamdaniId,
       slug: 'led-desk-lamp-wireless-charger',
-      titleBn: '১৫ ওয়াট ওয়্যারলেস চার্জিং সমৃদ্ধ ফোল্ডিং এলইডি ডেস্ক ল্যাম্প',
+      titleBn: 'Touch Dimmable Reading LED Lamp with 15W Qi Wireless Charging Pad',
       titleEn: 'Touch Dimmable Reading LED Lamp with 15W Qi Wireless Charging Pad',
       desc: 'Eye-friendly multi-angle adjustable LED lamp with 3 color temperatures, dimmer touch slider, and fast wireless charging base.',
-      basePrice: 195000n, // ৳1,950
+      basePrice: 195000n, // BDT 1,950
       moq: 10,
       isB2b: true,
       sku: 'SKU-DESKLMP-035',
@@ -967,10 +967,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 7,
       sellerId: sellerBengalId,
       slug: 'handcrafted-brass-water-pitcher',
-      titleBn: 'ধামরাইয়ের হাতে তৈরি খাঁটি পিতলের জলকলসি (৩ লিটার)',
+      titleBn: 'Dhamrai Heritage Hand-Cast Brass Water Pitcher (3L Capacity)',
       titleEn: 'Dhamrai Heritage Hand-Cast Brass Water Pitcher (3L Capacity)',
       desc: 'Traditional sand-cast brass water pitcher handcrafted by master artisans in Dhamrai with natural antibacterial properties.',
-      basePrice: 385000n, // ৳3,850
+      basePrice: 385000n, // BDT 3,850
       moq: 1,
       isB2b: false,
       sku: 'SKU-BRASS-036',
@@ -983,10 +983,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 7,
       sellerId: sellerBengalId,
       slug: 'clay-earthenware-dinner-set',
-      titleBn: 'বিজয়পুরের ঐতিহ্যবাহী পোড়ামাটির সিরামিক ডিনার সেট (১২ পিস)',
+      titleBn: 'Bijoypur Handcrafted Ceramic Terracotta Dining Set (12 pcs)',
       titleEn: 'Bijoypur Handcrafted Ceramic Terracotta Dining Set (12 pcs)',
       desc: 'Glazed earthenware dinnerware crafted from natural white clay of Susang Durgapur, Netrokona.',
-      basePrice: 295000n, // ৳2,950
+      basePrice: 295000n, // BDT 2,950
       moq: 1,
       isB2b: false,
       sku: 'SKU-CLAY-037',
@@ -999,10 +999,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 7,
       sellerId: sellerBengalId,
       slug: 'cane-bamboo-laundry-hamper',
-      titleBn: 'বেত ও বাঁশের তৈরি ঢাকনাসহ লন্ড্রি বাস্কেট',
+      titleBn: 'Traditional Eco Cane & Bamboo Woven Laundry Basket with Lid',
       titleEn: 'Traditional Eco Cane & Bamboo Woven Laundry Basket with Lid',
       desc: 'Durable, naturally ventilated woven cane hamper crafted in Sylhet with breathable cotton inner lining.',
-      basePrice: 115000n, // ৳1,150
+      basePrice: 115000n, // BDT 1,150
       moq: 10,
       isB2b: true,
       sku: 'SKU-CANE-038',
@@ -1019,10 +1019,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 7,
       sellerId: sellerBengalId,
       slug: 'nakshi-kantha-quilt-embroidered',
-      titleBn: 'যশোরের হাতে সেলাই করা খাঁটি সুতি নকশী কাঁথা',
+      titleBn: 'Pure Cotton Hand-Embroidered Traditional Nakshi Kantha (Double Bed)',
       titleEn: 'Pure Cotton Hand-Embroidered Traditional Nakshi Kantha (Double Bed)',
       desc: 'Artisan embroidered heritage quilt taking over two months to complete in rural Jashore villages.',
-      basePrice: 320000n, // ৳3,200
+      basePrice: 320000n, // BDT 3,200
       moq: 5,
       isB2b: true,
       sku: 'SKU-KANTHA-039',
@@ -1039,10 +1039,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 7,
       sellerId: sellerBengalId,
       slug: 'brass-decorative-incense-burner',
-      titleBn: 'নকশী অ্যান্টিক পিতলের সুগন্ধি ধূপদানি',
-      titleEn: 'Antique Carved Dhamrai Brass Incense Holder & Burner (ধূপদানি)',
+      titleBn: 'Antique Carved Dhamrai Brass Incense Holder & Burner',
+      titleEn: 'Antique Carved Dhamrai Brass Incense Holder & Burner',
       desc: 'Ornate pierced floral cutwork brass burner with wooden heat-resistant handle for burning bakhoor and natural dhoop.',
-      basePrice: 85000n, // ৳850
+      basePrice: 85000n, // BDT 850
       moq: 1,
       isB2b: false,
       sku: 'SKU-INCENSE-040',
@@ -1057,10 +1057,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 8,
       sellerId: sellerJamdaniId,
       slug: 'pure-organic-neem-wood-comb',
-      titleBn: 'খাঁটি নিম কাঠের তৈরি অ্যান্টি-ড্যান্ড্রাফ চিরুনি',
+      titleBn: 'Handcrafted Anti-Dandruff Organic Neem Wood Comb',
       titleEn: 'Handcrafted Anti-Dandruff Organic Neem Wood Comb',
       desc: 'Smooth polished neem wood wide-tooth comb that controls scalp irritation and prevents static hair frizz.',
-      basePrice: 18000n, // ৳180
+      basePrice: 18000n, // BDT 180
       moq: 30,
       isB2b: true,
       sku: 'SKU-COMB-041',
@@ -1077,10 +1077,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 8,
       sellerId: sellerJamdaniId,
       slug: 'herbal-hair-oil-ayurvedic-200ml',
-      titleBn: '২১ টি ভেষজ সমৃদ্ধ আয়ুর্বেদিক হেয়ার ফল কন্ট্রোল তেল (২০০ মি.লি.)',
+      titleBn: '21 Herb Infused Traditional Ayurvedic Hair Fall Control Oil (200ml)',
       titleEn: '21 Herb Infused Traditional Ayurvedic Hair Fall Control Oil (200ml)',
       desc: 'Formulated with amla, bhringraj, brahmi, and virgin coconut oil slow-cooked on traditional charcoal heat.',
-      basePrice: 42000n, // ৳420
+      basePrice: 42000n, // BDT 420
       moq: 15,
       isB2b: true,
       sku: 'SKU-HAIROIL-042',
@@ -1097,10 +1097,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 8,
       sellerId: sellerJamdaniId,
       slug: 'multani-mitti-bentonite-clay-200g',
-      titleBn: 'খাঁটি মুলতানি মাটি ফেসপ্যাক পাউডার (২০০ গ্রাম)',
+      titleBn: 'Pure Ayurvedic Fuller Earth / Multani Mitti Face Pack (200g)',
       titleEn: 'Pure Ayurvedic Fuller Earth / Multani Mitti Face Pack (200g)',
       desc: 'Fine micro-filtered natural healing clay for gentle pore cleansing, oil balancing, and skin brightening.',
-      basePrice: 15000n, // ৳150
+      basePrice: 15000n, // BDT 150
       moq: 1,
       isB2b: false,
       sku: 'SKU-CLAYMK-043',
@@ -1113,10 +1113,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 8,
       sellerId: sellerJamdaniId,
       slug: 'handcrafted-organic-goat-milk-soap',
-      titleBn: 'হাতে তৈরি ছাগলের দুধ ও মধুর প্রাকৃতিক সাবান (১০০ গ্রাম)',
+      titleBn: 'Cold-Processed Artisan Organic Goat Milk & Honey Soap (100g Bar)',
       titleEn: 'Cold-Processed Artisan Organic Goat Milk & Honey Soap (100g Bar)',
       desc: 'Sulfate and paraben free handmade soap bar made with raw goat milk, cold-pressed olive oil, and organic honey.',
-      basePrice: 22000n, // ৳220
+      basePrice: 22000n, // BDT 220
       moq: 25,
       isB2b: true,
       sku: 'SKU-SOAP-044',
@@ -1133,10 +1133,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 8,
       sellerId: sellerJamdaniId,
       slug: 'organic-aloe-vera-gel-250g',
-      titleBn: '৯৯% খাঁটি অর্গানিক ঘৃতকুমারী / অ্যালোভেরা জেল (২৫০ গ্রাম)',
+      titleBn: '99% Pure Soothing Organic Aloe Vera Skin & Hair Gel (250g Tub)',
       titleEn: '99% Pure Soothing Organic Aloe Vera Skin & Hair Gel (250g Tub)',
       desc: 'Pure soothing multi-purpose gel harvested from fresh organic aloe leaves for sunburn, hydration, and hair care.',
-      basePrice: 29000n, // ৳290
+      basePrice: 29000n, // BDT 290
       moq: 1,
       isB2b: false,
       sku: 'SKU-ALOE-045',
@@ -1151,10 +1151,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 9,
       sellerId: sellerBengalId,
       slug: 'industrial-safety-helmet-isi',
-      titleBn: 'ভারী নির্মাণ কাজের পলি-কার্বনেট সেফটি হেলমেট (সাদা)',
+      titleBn: 'Heavy Duty Polycarbonate Construction Safety Helmet (White)',
       titleEn: 'Heavy Duty Polycarbonate Construction Safety Helmet (White)',
       desc: 'High-impact industrial helmet with ratchet head suspension, ventilation slots, and sweatband.',
-      basePrice: 45000n, // ৳450
+      basePrice: 45000n, // BDT 450
       moq: 20,
       isB2b: true,
       sku: 'SKU-HELMET-046',
@@ -1172,10 +1172,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 9,
       sellerId: sellerBengalId,
       slug: 'reinforced-leather-welding-gloves',
-      titleBn: 'তাপরোধী খাঁটি চামড়ার ওয়েল্ডিং সেফটি গ্লাভস (জোড়া)',
+      titleBn: 'Heat Resistant Split Leather Industrial Welding Gloves (Pair)',
       titleEn: 'Heat Resistant Split Leather Industrial Welding Gloves (Pair)',
       desc: '14-inch heavy duty cow split leather gloves lined with Kevlar stitching for arc welding and metallurgy works.',
-      basePrice: 32000n, // ৳320
+      basePrice: 32000n, // BDT 320
       moq: 30,
       isB2b: true,
       sku: 'SKU-GLOVES-047',
@@ -1192,10 +1192,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 9,
       sellerId: sellerBengalId,
       slug: 'ansi-approved-safety-goggles',
-      titleBn: 'অ্যান্টি-ফগ ইমপ্যাক্ট রেজিস্ট্যান্ট স্বচ্ছ সেফটি গগলস',
+      titleBn: 'Anti-Fog Clear Impact Resistant Safety Eye Goggles',
       titleEn: 'Anti-Fog Clear Impact Resistant Safety Eye Goggles',
       desc: 'Wrap-around panoramic safety eyewear with UV400 protection and scratch-resistant polycarbonate lens.',
-      basePrice: 19000n, // ৳190
+      basePrice: 19000n, // BDT 190
       moq: 50,
       isB2b: true,
       sku: 'SKU-GOGGLES-048',
@@ -1212,10 +1212,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 9,
       sellerId: sellerBengalId,
       slug: 'safety-vest-high-visibility',
-      titleBn: 'উচ্চ প্রতিফলক নিয়ন হলুদ সেফটি ভেস্ট',
+      titleBn: 'Neon Yellow Reflective High-Visibility Construction Vest',
       titleEn: 'Neon Yellow Reflective High-Visibility Construction Vest',
       desc: 'EN ISO 20471 compliant Class 2 high visibility breathable mesh vest with 2-inch wide 3M reflective tape.',
-      basePrice: 18000n, // ৳180
+      basePrice: 18000n, // BDT 180
       moq: 50,
       isB2b: true,
       sku: 'SKU-VEST-049',
@@ -1232,10 +1232,10 @@ export async function runSeed(): Promise<{ before: TableCounts; after: TableCoun
       catIndex: 9,
       sellerId: sellerBengalId,
       slug: 'steel-toe-safety-work-boots',
-      titleBn: 'ইস্পাত-যুক্ত খাঁটি চামড়ার ভারী সেফটি বুট জুতা',
+      titleBn: 'Industrial Oil & Acid Resistant Steel-Toe Work Safety Boots (Pair)',
       titleEn: 'Industrial Oil & Acid Resistant Steel-Toe Work Safety Boots (Pair)',
       desc: '200 Joule impact steel toe safety footwear with puncture-resistant steel midsole and oil-resistant PU sole.',
-      basePrice: 265000n, // ৳2,650
+      basePrice: 265000n, // BDT 2,650
       moq: 10,
       isB2b: true,
       sku: 'SKU-BOOTS-050',
