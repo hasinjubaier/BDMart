@@ -1,0 +1,52 @@
+Command: pnpm build
+Exit Code: 0
+
+$ next build
+   ▲ Next.js 15.5.29
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2.9s
+   Linting and checking validity of types ...
+
+./src/app/products/[slug]/page.tsx
+118:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/ui/safe-image.tsx
+17:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/7) ...
+   Generating static pages (1/7) 
+   Generating static pages (3/7) 
+   Generating static pages (5/7) 
+ ✓ Generating static pages (7/7)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ƒ /                                    1.41 kB         143 kB
+├ ○ /_not-found                            996 B         104 kB
+├ ƒ /admin/moderation                    1.41 kB         143 kB
+├ ƒ /admin/moderation/[id]               2.93 kB         145 kB
+├ ƒ /api/auth/session                      129 B         103 kB
+├ ƒ /api/protected/admin                   129 B         103 kB
+├ ƒ /api/protected/buyer                   129 B         103 kB
+├ ƒ /categories/[slug]                     126 B         145 kB
+├ ○ /login                               4.54 kB         147 kB
+├ ƒ /products                              127 B         145 kB
+├ ƒ /products/[slug]                      2.6 kB         145 kB
+├ ƒ /seller/inventory                    3.12 kB         145 kB
+├ ƒ /seller/products                     1.41 kB         143 kB
+├ ƒ /seller/products/[id]/edit             128 B         147 kB
+├ ƒ /seller/products/new                   128 B         147 kB
+└ ƒ /sellers/[id]                        1.41 kB         143 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/524-48f8168b624b0270.js       46.3 kB
+  ├ chunks/79871edf-cffb87be9f407cec.js  54.2 kB
+  └ other shared chunks (total)          1.99 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

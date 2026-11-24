@@ -1,0 +1,162 @@
+Command: node --env-file=.env.local --import tsx scripts/browser-journey.ts
+Exit Code: 0
+
+--- STARTING PHASE 2 BROWSER JOURNEY ---
+Traceable Item SKU: SKU-NAKSHI-1795515069195-01
+Title: Artisan Embroidered Nakshi Jute Bag (Phase 2 Test 1795515069195)
+
+[Step 1] Seller Browser: Creating listing and submitting for moderation...
+✓ Product created and submitted. Status displayed: pending
+[Screenshot captured]: 01-seller-draft-submitted.png
+
+[Step 2] Visitor Browser: Verifying pending listing is absent from public search & direct URL...
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ Search for pending SKU returned 'No Products Found': true
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ Direct access to pending listing URL returned 404 Not Found: true
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Screenshot captured]: 02-visitor-pending-hidden.png
+
+[Step 3] Admin & Seller: Return listing, correct, resubmit, and publish...
+[Screenshot captured]: 03-admin-review-detail.png
+✓ Admin returned submission with reason: "Please specify exact jute fiber grade and certify eco-friendly vegetable dyeing."
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ Seller sees returned moderation reason in workspace: true
+[Screenshot captured]: 04-seller-returned-reason.png
+✓ Seller addressed reason and resubmitted listing.
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+[Seller Browser Console]: Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ Admin published listing.
+[Screenshot captured]: 05-admin-published.png
+
+[Step 4] Visitor Browser: Finding published listing, checking variant availability and URL state...
+✓ Visitor successfully found published listing in catalog via SKU search.
+[Screenshot captured]: 06-visitor-search-result.png
+✓ PDP loaded: "Artisan Embroidered Nakshi Jute Bag (Phase 2 Test 1795515069195)", SKU: SKU-NAKSHI-1795515069195-01, Availability: In Stock (1 available)
+[Screenshot captured]: 07-visitor-pdp-initial-instock.png
+✓ URL search and filter state verified on Back navigation and page reload.
+
+[Step 5] Seller Browser: Adjusting stock of variant to 0 with observable reason...
+✓ Stock adjusted to 0 with reason: "Showroom physical sample allocation; zero warehouse units remaining."
+[Screenshot captured]: 08-seller-stock-zeroed.png
+
+[Step 6] Visitor Browser: Refreshing PDP to observe out-of-stock outcome & sibling variant...
+✓ Variant SKU-NAKSHI-1795515069195-01 badge: "Out of Stock", CTA disabled: true
+✓ Sibling variant SKU-NAKSHI-1795515069195-02 availability: "In Stock (10 available)"
+[Screenshot captured]: 09-visitor-variant-out-of-stock.png
+
+[Step 7] Explicit Public In-Stock Filter Verification...
+✓ Listing visible on /products?inStock=true while sibling has stock: true
+[Screenshot captured]: 12-visitor-instock-filter-sibling-available.png
+✓ Sibling variant stock adjusted to 0 with reason: "Complete inventory zero-out: stock balance audit confirmed 0 warehouse units."
+[Screenshot captured]: 13-seller-sibling-stock-zeroed.png
+✓ Listing disappeared from /products?inStock=true when all variants zeroed: true
+[Screenshot captured]: 14-visitor-instock-filter-disappeared.png
+✓ Listing visible on /products as out-of-stock: true (Badge: true)
+[Screenshot captured]: 15-visitor-catalog-out-of-stock.png
+
+[Step 8] Keyboard Navigation & Visible Focus Verification...
+[Screenshot captured]: 16-keyboard-focus-visible.png
+✓ Keyboard focus tested and screenshot captured.
+
+[Step 9] Real Screens: Verifying Fully Reserved Stock (On-Hand=5, Reserved=5, Available=0)...
+✓ Initial PDP availability (on-hand=5, reserved=0): "In Stock (5 available)"
+[Screenshot captured]: 17-reserved-check-initial-instock.png
+✓ Initial catalog search finds item: true (In Stock badge: true)
+[Screenshot captured]: 18-reserved-check-catalog-initial.png
+✓ In-stock filter (http://localhost:3000/products?inStock=true&q=SKU-RES-SCREEN-1795515124233-01) finds item: true
+[Screenshot captured]: 19-reserved-check-instock-filter-initial.png
+✓ Database reservation fixture created: on-hand = 5, active reservations = 5, available = 0.
+✓ Refreshed PDP availability (on-hand=5, reserved=5): "Out of Stock", CTA disabled: true ("Currently Unavailable")
+[Screenshot captured]: 20-reserved-check-refreshed-out-of-stock.png
+✓ Refreshed catalog search shows listing: true (Out of Stock badge: true)
+[Screenshot captured]: 21-reserved-check-catalog-out-of-stock.png
+✓ In-stock filter excludes fully reserved listing: true
+[Screenshot captured]: 22-reserved-check-instock-filter-excluded.png
+✓ Fully reserved test fixtures cleaned up from database.
+
+[Step 10] Real Screens: Verifying Wholesale Volume Pricing Ladder on PDP...
+✓ Wholesale pricing ladder visible: true, MOQ badge: true
+✓ Volume tiers verified on screen: 50+ (true), 100+ (true), 500+ (true)
+[Screenshot captured]: 23-wholesale-pricing-ladder.png
+
+[Mobile 360px Viewport Verification]
+[Screenshot captured]: 10-mobile-360px-pdp.png
+[Screenshot captured]: 11-mobile-360px-catalog.png
+✓ 360px mobile viewport screenshots captured.
+
+--- ALL BROWSER JOURNEY STEPS COMPLETED SUCCESSFULLY ---
+{
+  "step1_seller_submit": "Listing created with SKU SKU-NAKSHI-1795515069195-01. Status: pending",
+  "step2_visitor_hidden": "Pending listing absent from search (0 results) and returns 404 on direct URL /products/artisan-embroidered-nakshi-jute-bag-phase-2-test-1795515069195",
+  "step3_moderation_cycle": "Admin returned with reason: \"Please specify exact jute fiber grade and certify eco-friendly vegetable dyeing.\". Seller corrected and resubmitted. Admin published.",
+  "step4_visitor_found": "Found published item. SKU: SKU-NAKSHI-1795515069195-01, Initial availability: In Stock (1 available), Price: BDT 420.",
+  "step5_seller_stock_zeroed": "Adjusted stock of SKU-NAKSHI-1795515069195-01 from 1 to 0. Reason: \"Showroom physical sample allocation; zero warehouse units remaining.\"",
+  "step6_visitor_outcome": "Variant SKU-NAKSHI-1795515069195-01 updated to \"Out of Stock\". Sibling variant SKU-NAKSHI-1795515069195-02 retained \"In Stock (10 available)\".",
+  "step7a_instock_filter_sibling": "Listing remains visible on /products?inStock=true while sibling retains 10 units.",
+  "step7b_sibling_zeroed": "Adjusted sibling SKU-NAKSHI-1795515069195-02 to 0 stock. Reason: \"Complete inventory zero-out: stock balance audit confirmed 0 warehouse units.\".",
+  "step7c_disappeared_from_instock": "Listing completely disappears from /products?inStock=true when all variants reach 0 stock.",
+  "step7d_visible_out_of_stock": "Listing still discoverable on /products with \"Out of Stock\" status.",
+  "step9a_initial_pdp": "Initial PDP shows \"In Stock (5 available)\" for SKU SKU-RES-SCREEN-1795515124233-01 (on-hand=5, reserved=0, available=5).",
+  "step9b_initial_catalog": "Listing appears in ordinary catalog with \"In Stock\" badge (totalStock=5).",
+  "step9c_initial_instock_filter": "In-stock filter (/products?inStock=true) includes listing when available stock = 5.",
+  "step9e_refreshed_pdp": "Refreshed PDP shows \"Out of Stock\" and disabled \"Currently Unavailable\" when fully reserved (available=0).",
+  "step9f_refreshed_catalog": "Listing still appears in ordinary catalog but displays \"Out of Stock\" badge (totalStock=0).",
+  "step9g_refreshed_instock_filter": "In-stock filter (/products?inStock=true) successfully excludes listing when available stock = 0.",
+  "step10_wholesale_ladder": "Wholesale Volume Pricing Ladder confirmed on PDP (/products/eco-jute-tote-bag): MOQ 50 pcs, Tiers: 50+ (BDT 280), 100+ (BDT 220), 500+ (BDT 180)."
+}

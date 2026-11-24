@@ -39,3 +39,23 @@ export function slugify(text: string): string {
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
+
+/**
+ * Calculates the applicable unit price in integer poisha for a given order quantity
+ * based on base retail price and wholesale volume tiers.
+ */
+export function calculateTierUnitPrice(
+  basePrice: number | bigint,
+  tiers: Array<{ minQty: number; unitPrice: number | bigint }>,
+  qty: number
+): number {
+  const base = Number(basePrice);
+  if (!tiers || tiers.length === 0 || qty < 1) return base;
+
+  // Find the highest tier where qty >= minQty
+  const qualifyingTiers = tiers.filter((t) => qty >= t.minQty);
+  if (qualifyingTiers.length === 0) return base;
+
+  const bestTier = qualifyingTiers.reduce((max, t) => (t.minQty > max.minQty ? t : max), qualifyingTiers[0]);
+  return Number(bestTier.unitPrice);
+}

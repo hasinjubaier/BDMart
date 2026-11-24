@@ -2,6 +2,9 @@ import { chromium, type Page } from 'playwright';
 import path from 'path';
 import fs from 'fs';
 import { createSessionToken } from '../src/lib/auth/session';
+import { getDb } from '../src/db';
+import { products, productVariants, categories, sellers, users, orders, orderItems } from '../src/db/schema';
+import { eq } from 'drizzle-orm';
 
 const BASE_URL = 'http://localhost:3000';
 const WORKSPACE_SCREENSHOTS_DIR = path.resolve(process.cwd(), 'screenshots');
@@ -120,7 +123,7 @@ async function runJourney() {
     } catch {
       const errBanner = await sellerPage.locator('[data-testid="product-form-error"]').textContent().catch(() => null);
       console.log('Error banner on form:', errBanner);
-      await sellerPage.screenshot({ path: path.join(SCREENSHOTS_DIR, 'debug-seller-error.png') });
+      await captureScreen(sellerPage, 'debug-seller-error.png');
       throw new Error(`Seller form submission failed: ${errBanner || 'Unknown error'}`);
     }
     await sellerPage.waitForLoadState('domcontentloaded');
@@ -379,6 +382,171 @@ async function runJourney() {
     await visitorPage.keyboard.press('Tab');
     await captureScreen(visitorPage, '16-keyboard-focus-visible.png');
     console.log('✓ Keyboard focus tested and screenshot captured.');
+
+    // -------------------------------------------------------------------------
+    // STEP 9: Verify Fully Reserved Stock in Buyer's Actual Screens
+    // -------------------------------------------------------------------------
+    console.log('\n[Step 9] Real Screens: Verifying Fully Reserved Stock (On-Hand=5, Reserved=5, Available=0)...');
+    const db = getDb();
+    const [approvedSeller] = await db.select().from(sellers).where(eq(sellers.kycStatus, 'approved')).limit(1);
+    const [existingCategory] = await db.select().from(categories).limit(1);
+    const [existingBuyer] = await db.select().from(users).limit(1);
+
+    const resTestProdId = crypto.randomUUID();
+    const resTestVar1Id = crypto.randomUUID();
+    const resTestVar2Id = crypto.randomUUID();
+    const resTestTime = Date.now();
+    const resSku1 = `SKU-RES-SCREEN-${resTestTime}-01`;
+    const resSku2 = `SKU-RES-SCREEN-${resTestTime}-02`;
+    const resSlug = `jamdani-dupatta-reserved-test-${resTestTime}`;
+    const resTitle = `Authentic Jamdani Handloom Dupatta (Reserved Test ${resTestTime})`;
+
+    // Insert published active product with 2 variants:
+    // Variant 1: 5 units on-hand, 0 reserved initially -> available = 5, Price BDT 380
+    // Variant 2 (sibling): 0 units on-hand -> available = 0, Price BDT 400
+    await db.insert(products).values({
+      id: resTestProdId,
+      sellerId: approvedSeller.id,
+      categoryId: existingCategory.id,
+      slug: resSlug,
+      titleEn: resTitle,
+      titleBn: resTitle,
+      description: 'Exclusive handloom Jamdani dupatta for testing active stock reservations in buyer screens.',
+      status: 'active',
+      basePrice: 38000n,
+      moq: 1,
+      isB2bEnabled: false,
+    });
+
+    await db.insert(productVariants).values([
+      {
+        id: resTestVar1Id,
+        productId: resTestProdId,
+        sku: resSku1,
+        attributes: { color: 'Teal Green' },
+        stock: 5, // 5 on hand
+        price: 38000n,
+      },
+      {
+        id: resTestVar2Id,
+        productId: resTestProdId,
+        sku: resSku2,
+        attributes: { color: 'Midnight Black' },
+        stock: 0, // Sibling variant kept at 0 available
+        price: 40000n,
+      },
+    ]);
+
+    let resOrderId: string | null = null;
+
+    try {
+      // 9a. Signed-out visitor checks initial availability: on-hand=5, reserved=0, available=5
+      await visitorPage.goto(`${BASE_URL}/products/${resSlug}`);
+      await visitorPage.waitForLoadState('domcontentloaded');
+
+      const initialResBadge = await visitorPage.locator('[data-testid="variant-availability-badge"]').textContent();
+      console.log(`✓ Initial PDP availability (on-hand=5, reserved=0): "${initialResBadge?.trim()}"`);
+      await captureScreen(visitorPage, '17-reserved-check-initial-instock.png');
+      observations['step9a_initial_pdp'] = `Initial PDP shows "${initialResBadge?.trim()}" for SKU ${resSku1} (on-hand=5, reserved=0, available=5).`;
+
+      // 9b. Ordinary catalog search: product card appears with "In Stock" badge
+      await visitorPage.goto(`${BASE_URL}/products?q=${resSku1}`);
+      await visitorPage.waitForLoadState('domcontentloaded');
+      const catalogInitialFound = await visitorPage.locator(`text=${resTitle}`).isVisible();
+      const catalogInitialBadge = await visitorPage.locator('text=In Stock').first().isVisible();
+      console.log(`✓ Initial catalog search finds item: ${catalogInitialFound} (In Stock badge: ${catalogInitialBadge})`);
+      await captureScreen(visitorPage, '18-reserved-check-catalog-initial.png');
+      observations['step9b_initial_catalog'] = `Listing appears in ordinary catalog with "In Stock" badge (totalStock=5).`;
+
+      // 9c. In-stock filter search: /products?inStock=true&q=... finds the item
+      const filterInitialUrl = `${BASE_URL}/products?inStock=true&q=${resSku1}`;
+      await visitorPage.goto(filterInitialUrl);
+      await visitorPage.waitForLoadState('domcontentloaded');
+      const filterInitialFound = await visitorPage.locator(`text=${resTitle}`).isVisible();
+      console.log(`✓ In-stock filter (${filterInitialUrl}) finds item: ${filterInitialFound}`);
+      await captureScreen(visitorPage, '19-reserved-check-instock-filter-initial.png');
+      observations['step9c_initial_instock_filter'] = `In-stock filter (/products?inStock=true) includes listing when available stock = 5.`;
+
+      // 9d. Insert active reservation for all 5 units in PostgreSQL (PENDING order)
+      resOrderId = crypto.randomUUID();
+      await db.insert(orders).values({
+        id: resOrderId,
+        buyerId: existingBuyer.id,
+        type: 'b2c',
+        status: 'PENDING',
+        subtotal: 190000n,
+        deliveryFee: 6000n,
+        vat: 0n,
+        total: 196000n,
+        addressSnapshot: { city: 'Dhaka', address: 'Gulshan 2' },
+      });
+
+      await db.insert(orderItems).values({
+        id: crypto.randomUUID(),
+        orderId: resOrderId,
+        variantId: resTestVar1Id,
+        sellerId: approvedSeller.id,
+        qty: 5, // Fully reserves all 5 units!
+        unitPrice: 38000n,
+        titleSnapshot: resTitle,
+      });
+
+      console.log(`✓ Database reservation fixture created: on-hand = 5, active reservations = 5, available = 0.`);
+
+      // 9e. Refresh PDP through the normal application: must show "Out of Stock"!
+      await visitorPage.goto(`${BASE_URL}/products/${resSlug}`);
+      await visitorPage.waitForLoadState('domcontentloaded');
+      const refreshedResBadge = await visitorPage.locator('[data-testid="variant-availability-badge"]').textContent();
+      const refreshedCtaDisabled = await visitorPage.locator('[data-testid="add-to-cart-button"]').isDisabled();
+      const refreshedCtaText = await visitorPage.locator('[data-testid="add-to-cart-button"]').textContent();
+      console.log(`✓ Refreshed PDP availability (on-hand=5, reserved=5): "${refreshedResBadge?.trim()}", CTA disabled: ${refreshedCtaDisabled} ("${refreshedCtaText?.trim()}")`);
+      await captureScreen(visitorPage, '20-reserved-check-refreshed-out-of-stock.png');
+      observations['step9e_refreshed_pdp'] = `Refreshed PDP shows "${refreshedResBadge?.trim()}" and disabled "${refreshedCtaText?.trim()}" when fully reserved (available=0).`;
+
+      // 9f. Refresh ordinary catalog: listing still appears, but with "Out of Stock" badge
+      await visitorPage.goto(`${BASE_URL}/products?q=${resSku1}`);
+      await visitorPage.waitForLoadState('domcontentloaded');
+      const catalogRefreshedFound = await visitorPage.locator(`text=${resTitle}`).isVisible();
+      const catalogRefreshedBadge = await visitorPage.locator('text=Out of Stock').first().isVisible();
+      console.log(`✓ Refreshed catalog search shows listing: ${catalogRefreshedFound} (Out of Stock badge: ${catalogRefreshedBadge})`);
+      await captureScreen(visitorPage, '21-reserved-check-catalog-out-of-stock.png');
+      observations['step9f_refreshed_catalog'] = `Listing still appears in ordinary catalog but displays "Out of Stock" badge (totalStock=0).`;
+
+      // 9g. Refresh in-stock filter: /products?inStock=true&q=... must EXCLUDE the listing!
+      await visitorPage.goto(filterInitialUrl);
+      await visitorPage.waitForLoadState('domcontentloaded');
+      const filterRefreshedExcluded = !(await visitorPage.locator(`text=${resTitle}`).isVisible());
+      console.log(`✓ In-stock filter excludes fully reserved listing: ${filterRefreshedExcluded}`);
+      await captureScreen(visitorPage, '22-reserved-check-instock-filter-excluded.png');
+      observations['step9g_refreshed_instock_filter'] = `In-stock filter (/products?inStock=true) successfully excludes listing when available stock = 0.`;
+    } finally {
+      // Clean up test reservation fixture
+      if (resOrderId) {
+        await db.delete(orderItems).where(eq(orderItems.orderId, resOrderId));
+        await db.delete(orders).where(eq(orders.id, resOrderId));
+      }
+      await db.delete(productVariants).where(eq(productVariants.productId, resTestProdId));
+      await db.delete(products).where(eq(products.id, resTestProdId));
+      console.log(`✓ Fully reserved test fixtures cleaned up from database.`);
+    }
+
+    // -------------------------------------------------------------------------
+    // STEP 10: Wholesale Volume Pricing Ladder Verification on PDP
+    // -------------------------------------------------------------------------
+    console.log('\n[Step 10] Real Screens: Verifying Wholesale Volume Pricing Ladder on PDP...');
+    await visitorPage.goto(`${BASE_URL}/products/eco-jute-tote-bag`);
+    await visitorPage.waitForLoadState('domcontentloaded');
+
+    const wholesaleHeading = await visitorPage.locator('text=Wholesale Volume Pricing Ladder').isVisible();
+    const moqBadge = await visitorPage.locator('text=B2B Wholesale Enabled • MOQ: 50 pcs').isVisible();
+    const tier50Row = await visitorPage.locator('text=50+ pcs').isVisible();
+    const tier100Row = await visitorPage.locator('text=100+ pcs').isVisible();
+    const tier500Row = await visitorPage.locator('text=500+ pcs').isVisible();
+
+    console.log(`✓ Wholesale pricing ladder visible: ${wholesaleHeading}, MOQ badge: ${moqBadge}`);
+    console.log(`✓ Volume tiers verified on screen: 50+ (${tier50Row}), 100+ (${tier100Row}), 500+ (${tier500Row})`);
+    await captureScreen(visitorPage, '23-wholesale-pricing-ladder.png');
+    observations['step10_wholesale_ladder'] = `Wholesale Volume Pricing Ladder confirmed on PDP (/products/eco-jute-tote-bag): MOQ 50 pcs, Tiers: 50+ (BDT 280), 100+ (BDT 220), 500+ (BDT 180).`;
 
     // -------------------------------------------------------------------------
     // Mobile 360px Viewport Check

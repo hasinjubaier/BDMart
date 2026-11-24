@@ -126,16 +126,28 @@ export async function searchCatalog(params: Partial<CatalogQueryParams>): Promis
     )`);
   }
 
-  // Stock filter (inStock === true requires at least one variant with stock > 0)
+  // Stock filter (inStock === true requires at least one variant with available stock > 0, accounting for active reservations)
   if (params.inStock === true) {
     conditions.push(sql`EXISTS (
       SELECT 1 FROM ${productVariants} pv
-      WHERE pv.product_id = ${products.id} AND pv.stock > 0
+      WHERE pv.product_id = ${products.id} 
+        AND (pv.stock - COALESCE((
+          SELECT SUM(oi.qty)::int 
+          FROM order_items oi 
+          JOIN orders o ON oi.order_id = o.id 
+          WHERE oi.variant_id = pv.id AND o.status = 'PENDING'
+        ), 0)) > 0
     )`);
   } else if (params.inStock === false) {
     conditions.push(sql`NOT EXISTS (
       SELECT 1 FROM ${productVariants} pv
-      WHERE pv.product_id = ${products.id} AND pv.stock > 0
+      WHERE pv.product_id = ${products.id} 
+        AND (pv.stock - COALESCE((
+          SELECT SUM(oi.qty)::int 
+          FROM order_items oi 
+          JOIN orders o ON oi.order_id = o.id 
+          WHERE oi.variant_id = pv.id AND o.status = 'PENDING'
+        ), 0)) > 0
     )`);
   }
 
@@ -203,30 +215,35 @@ export async function searchCatalog(params: Partial<CatalogQueryParams>): Promis
 
   const productIds = productRows.map((p) => p.id);
 
-  // Fetch variants for these products to compute stock, min/max price, SKUs
+  // Fetch variants for these products to compute available stock, min/max price, SKUs
   const variants = productIds.length > 0
     ? await db
-        .select({
-          productId: productVariants.productId,
-          sku: productVariants.sku,
-          stock: productVariants.stock,
-          price: productVariants.price,
-        })
-        .from(productVariants)
-        .where(inArray(productVariants.productId, productIds))
+      .select({
+        productId: productVariants.productId,
+        sku: productVariants.sku,
+        stock: sql<number>`GREATEST(0, ${productVariants.stock} - COALESCE((
+            SELECT SUM(oi.qty)::int 
+            FROM order_items oi 
+            JOIN orders o ON oi.order_id = o.id 
+            WHERE oi.variant_id = "product_variants"."id" AND o.status = 'PENDING'
+          ), 0))::int`,
+        price: productVariants.price,
+      })
+      .from(productVariants)
+      .where(inArray(productVariants.productId, productIds))
     : [];
 
   // Fetch primary image for each product
   const images = productIds.length > 0
     ? await db
-        .select({
-          productId: productImages.productId,
-          storagePath: productImages.storagePath,
-          sort: productImages.sort,
-        })
-        .from(productImages)
-        .where(inArray(productImages.productId, productIds))
-        .orderBy(asc(productImages.sort))
+      .select({
+        productId: productImages.productId,
+        storagePath: productImages.storagePath,
+        sort: productImages.sort,
+      })
+      .from(productImages)
+      .where(inArray(productImages.productId, productIds))
+      .orderBy(asc(productImages.sort))
     : [];
 
   const items: CatalogProductItem[] = productRows.map((p) => {
@@ -363,7 +380,12 @@ export async function getProductBySlug(
         id: productVariants.id,
         sku: productVariants.sku,
         attributes: productVariants.attributes,
-        stock: productVariants.stock,
+        stock: sql<number>`GREATEST(0, ${productVariants.stock} - COALESCE((
+          SELECT SUM(oi.qty)::int 
+          FROM order_items oi 
+          JOIN orders o ON oi.order_id = o.id 
+          WHERE oi.variant_id = "product_variants"."id" AND o.status = 'PENDING'
+        ), 0))::int`,
         price: productVariants.price,
       })
       .from(productVariants)

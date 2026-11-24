@@ -1,0 +1,63 @@
+Command: pnpm test
+Exit Code: 0
+
+$ vitest run
+Command: pnpm test
+Exit Code: 0
+
+$ vitest run
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.1 [39m[90mD:/Project/BDMart[39m
+
+ [32m✓[39m src/lib/auth/phone.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/lib/auth/auth.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 5641[2mms[22m[39m
+   [32m✓[39m BD Mart Authentication & RBAC Test Suite [2m(9)[22m
+     [33m[2m✓[22m[39m 1. First sign-in creates user with default buyer role and en locale[33m 2101[2mms[22m[39m
+     [33m[2m✓[22m[39m 2. Repeat sign-in reuses existing database row and preserves existing role[33m 1039[2mms[22m[39m
+     [33m[2m✓[22m[39m 6. Authenticated user with matching role is granted access[33m 513[2mms[22m[39m
+ [32m✓[39m src/server/services/catalog.test.ts [2m([22m[2m22 tests[22m[2m)[22m[33m 30250[2mms[22m[39m
+   [32m✓[39m Phase 2: Catalog Pricing and Search Verification [2m(22)[22m
+     [32m✓[39m Public Catalog Search and Visibility Rules [2m(11)[22m
+       [33m[2m✓[22m[39m retrieves active categories list ordered by sort order[33m 1628[2mms[22m[39m
+       [33m[2m✓[22m[39m only returns active published products in public search[33m 2445[2mms[22m[39m
+       [33m[2m✓[22m[39m supports case-insensitive English title search[33m 3295[2mms[22m[39m
+       [33m[2m✓[22m[39m supports exact SKU lookup via search query[33m 1083[2mms[22m[39m
+       [33m[2m✓[22m[39m verifies the canonical jute tote fixture properties and wholesale tiers[33m 1587[2mms[22m[39m
+       [33m[2m✓[22m[39m calculates wholesale tier boundary unit prices correctly across all volume brackets[33m 542[2mms[22m[39m
+       [33m[2m✓[22m[39m filters by category slug[33m 1376[2mms[22m[39m
+       [33m[2m✓[22m[39m filters by price range (minPrice / maxPrice in BDT)[33m 1355[2mms[22m[39m
+       [33m[2m✓[22m[39m filters by in-stock availability[33m 1353[2mms[22m[39m
+       [33m[2m✓[22m[39m returns empty result for non-existent category or query[33m 560[2mms[22m[39m
+     [32m✓[39m English-Only Public Catalog Verification & Legacy Locale Isolation [2m(4)[22m
+       [33m[2m✓[22m[39m discovers bilingual fixture via case-insensitive English title search[33m 2150[2mms[22m[39m
+       [33m[2m✓[22m[39m discovers bilingual fixture via exact SKU lookup[33m 1073[2mms[22m[39m
+       [33m[2m✓[22m[39m displays documented minimal English fallback when titleEn is empty, never leaking legacy Bengali text[33m 2625[2mms[22m[39m
+     [32m✓[39m Active Reservation & Available Stock Public Isolation [2m(2)[22m
+       [33m[2m✓[22m[39m shows 5 available units and appears in inStock=true when 0 units are reserved[33m 1614[2mms[22m[39m
+       [33m[2m✓[22m[39m shows Out of Stock (0 available) and is excluded from inStock=true when all 5 units are reserved in PENDING order[33m 2415[2mms[22m[39m
+ [32m✓[39m src/server/services/seller-moderation.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 48100[2mms[22m[39m
+   [32m✓[39m Phase 2: Seller Workspace, Moderation & Inventory Concurrency [2m(18)[22m
+     [32m✓[39m Permissions & Ownership Enforcement [2m(4)[22m
+       [33m[2m✓[22m[39m prevents an unapproved seller from submitting a product for moderation[33m 2607[2mms[22m[39m
+       [33m[2m✓[22m[39m prevents Seller B from modifying or updating Seller A listing[33m 2592[2mms[22m[39m
+       [33m[2m✓[22m[39m prevents Seller B from adjusting inventory of Seller A variant[33m 3130[2mms[22m[39m
+       [33m[2m✓[22m[39m enforces global SKU uniqueness across variants[33m 2843[2mms[22m[39m
+     [32m✓[39m Full Listing Lifecycle (Draft -> Submit -> Return -> Resubmit -> Publish -> Edit Policy) [2m(10)[22m
+       [33m[2m✓[22m[39m Step 1: Seller creates a draft listing[33m 3111[2mms[22m[39m
+       [33m[2m✓[22m[39m Step 3: Seller submits draft for moderation[33m 2596[2mms[22m[39m
+       [33m[2m✓[22m[39m Step 4: Pending listing appears in admin moderation queue[33m 523[2mms[22m[39m
+       [33m[2m✓[22m[39m Step 5: Admin returns listing with revision reason[33m 2076[2mms[22m[39m
+       [33m[2m✓[22m[39m Step 6: Seller updates listing to address changes and resubmits[33m 4933[2mms[22m[39m
+       [33m[2m✓[22m[39m Step 7: Admin publishes listing to live store[33m 1036[2mms[22m[39m
+       [33m[2m✓[22m[39m Step 8: Published listing is now discoverable in public catalog[33m 1557[2mms[22m[39m
+       [33m[2m✓[22m[39m Step 9: Edits after publication policy: Seller updating active product triggers re-moderation[33m 4140[2mms[22m[39m
+       [33m[2m✓[22m[39m Step 10: Repeated publish or return calls leave consistent idempotent state[33m 517[2mms[22m[39m
+     [32m✓[39m Inventory Concurrency & Atomic Balance Controls [2m(4)[22m
+       [33m[2m✓[22m[39m enforces active reservations and rejects adjustments reducing stock below reserved units[33m 2073[2mms[22m[39m
+       [33m[2m✓[22m[39m enforces seller authorization and product ownership guards on stock adjustment[33m 1294[2mms[22m[39m
+       [33m[2m✓[22m[39m executes competing signed deltas atomically, applying each accepted delta exactly once to reach exact balance[33m 2611[2mms[22m[39m
+       [33m[2m✓[22m[39m prevents stale form overwrites under competing absolute targets via optimistic concurrency check[33m 1551[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[32m57 passed[39m[22m[90m (57)[39m
+[2m   Start at [22m 16:32:06
+[2m   Duration [22m 48.71s[2m (tests 98%, import 2%)[22m

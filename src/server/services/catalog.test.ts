@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { formatBDT, poishaToBdt, bdtToPoisha, slugify } from '@/lib/formatters';
+import { formatBDT, poishaToBdt, bdtToPoisha, slugify, calculateTierUnitPrice } from '@/lib/formatters';
 import { getDb } from '@/db';
-import { products, productVariants, categories, sellers } from '@/db/schema';
+import { products, productVariants, categories, sellers, users, orders, orderItems } from '@/db/schema';
 import { eq, inArray } from 'drizzle-orm';
 import {
   searchCatalog,
@@ -102,6 +102,36 @@ describe('Phase 2: Catalog Pricing and Search Verification', () => {
       expect(tier50?.unitPrice).toBe(28000); // BDT 280
       expect(tier100?.unitPrice).toBe(22000); // BDT 220
       expect(tier500?.unitPrice).toBe(18000); // BDT 180
+    });
+
+    it('calculates wholesale tier boundary unit prices correctly across all volume brackets', async () => {
+      const product = await getProductBySlug('eco-jute-tote-bag');
+      expect(product).not.toBeNull();
+      if (!product) return;
+
+      const basePrice = product.basePrice; // 35000 poisha = BDT 350
+      const tiers = product.tiers; // 50: 28000 (BDT 280), 100: 22000 (BDT 220), 500: 18000 (BDT 180)
+
+      // 1. Below minimum (qty: 49 < MOQ 50) -> unit price remains base retail price BDT 350
+      expect(calculateTierUnitPrice(basePrice, tiers, 49)).toBe(35000);
+
+      // 2. At minimum (qty: 50 == Tier 1 threshold) -> unit price drops to BDT 280
+      expect(calculateTierUnitPrice(basePrice, tiers, 50)).toBe(28000);
+
+      // 3. Immediately below next tier (qty: 99 < Tier 2 threshold 100) -> unit price remains BDT 280
+      expect(calculateTierUnitPrice(basePrice, tiers, 99)).toBe(28000);
+
+      // 4. At next tier (qty: 100 == Tier 2 threshold) -> unit price drops to BDT 220
+      expect(calculateTierUnitPrice(basePrice, tiers, 100)).toBe(22000);
+
+      // 5. Immediately below tier 3 (qty: 499 < Tier 3 threshold 500) -> unit price remains BDT 220
+      expect(calculateTierUnitPrice(basePrice, tiers, 499)).toBe(22000);
+
+      // 6. At tier 3 (qty: 500 == Tier 3 threshold) -> unit price drops to BDT 180
+      expect(calculateTierUnitPrice(basePrice, tiers, 500)).toBe(18000);
+
+      // 7. Well above tier 3 (qty: 1000) -> unit price remains BDT 180
+      expect(calculateTierUnitPrice(basePrice, tiers, 1000)).toBe(18000);
     });
 
     it('filters by category slug', async () => {
@@ -273,6 +303,122 @@ describe('Phase 2: Catalog Pricing and Search Verification', () => {
       expect(item).toBeDefined();
       expect(item?.title).toBe('BD Mart Product');
       expect(item?.title).not.toBe('ঐতিহ্যবাহী কাঁথা নকশি বেডস্প্রেড');
+    });
+  });
+
+  describe('Active Reservation & Available Stock Public Isolation', () => {
+    const db = getDb();
+    let sellerId: string;
+    let categoryId: string;
+    let buyerId: string;
+    let reservedTestProductId: string;
+    let reservedTestVariantId: string;
+    let reservedTestOrderId: string;
+    const reservedSku = `SKU-RES-TEST-${Date.now()}`;
+    const reservedSlug = `reserved-test-item-${Date.now()}`;
+
+    beforeAll(async () => {
+      const [seller] = await db.select().from(sellers).where(eq(sellers.kycStatus, 'approved')).limit(1);
+      sellerId = seller!.id;
+      const [cat] = await db.select().from(categories).limit(1);
+      categoryId = cat!.id;
+      const [user] = await db.select().from(users).limit(1);
+      buyerId = user!.id;
+
+      // 1. Create active product with 1 variant having 5 units on hand
+      reservedTestProductId = crypto.randomUUID();
+      reservedTestVariantId = crypto.randomUUID();
+
+      await db.insert(products).values({
+        id: reservedTestProductId,
+        sellerId,
+        categoryId,
+        slug: reservedSlug,
+        titleEn: 'Isolated Reservation Test Item',
+        titleBn: 'Isolated Reservation Test Item',
+        description: 'Test item for verifying active reservations subtract from public stock.',
+        status: 'active',
+        basePrice: 50000n,
+        moq: 1,
+        isB2bEnabled: false,
+      });
+
+      await db.insert(productVariants).values({
+        id: reservedTestVariantId,
+        productId: reservedTestProductId,
+        sku: reservedSku,
+        attributes: { color: 'Blue' },
+        stock: 5, // 5 on hand
+        price: 50000n,
+      });
+    });
+
+    afterAll(async () => {
+      if (reservedTestOrderId) {
+        await db.delete(orderItems).where(eq(orderItems.orderId, reservedTestOrderId));
+        await db.delete(orders).where(eq(orders.id, reservedTestOrderId));
+      }
+      if (reservedTestProductId) {
+        await db.delete(productVariants).where(eq(productVariants.productId, reservedTestProductId));
+        await db.delete(products).where(eq(products.id, reservedTestProductId));
+      }
+    });
+
+    it('shows 5 available units and appears in inStock=true when 0 units are reserved', async () => {
+      // 1. In getProductBySlug
+      const detail = await getProductBySlug(reservedSlug);
+      expect(detail).not.toBeNull();
+      const variant = detail!.variants.find((v) => v.sku === reservedSku);
+      expect(variant?.stock).toBe(5);
+
+      // 2. In searchCatalog with inStock=true
+      const searchRes = await searchCatalog({ inStock: true, q: reservedSku });
+      const found = searchRes.items.find((i) => i.skus.includes(reservedSku));
+      expect(found).toBeDefined();
+      expect(found?.totalStock).toBe(5);
+    });
+
+    it('shows Out of Stock (0 available) and is excluded from inStock=true when all 5 units are reserved in PENDING order', async () => {
+      // Create PENDING order reserving all 5 units
+      reservedTestOrderId = crypto.randomUUID();
+      await db.insert(orders).values({
+        id: reservedTestOrderId,
+        buyerId,
+        type: 'b2c',
+        status: 'PENDING',
+        subtotal: 250000n,
+        deliveryFee: 6000n,
+        vat: 0n,
+        total: 256000n,
+        addressSnapshot: { city: 'Dhaka', address: 'Dhanmondi' },
+      });
+
+      await db.insert(orderItems).values({
+        id: crypto.randomUUID(),
+        orderId: reservedTestOrderId,
+        variantId: reservedTestVariantId,
+        sellerId,
+        qty: 5, // Fully reserves all 5 on-hand units!
+        unitPrice: 50000n,
+        titleSnapshot: 'Isolated Reservation Test Item',
+      });
+
+      // 1. In getProductBySlug: available stock must be 0!
+      const detail = await getProductBySlug(reservedSlug);
+      expect(detail).not.toBeNull();
+      const variant = detail!.variants.find((v) => v.sku === reservedSku);
+      expect(variant?.stock).toBe(0); // Available stock is max(0, 5 - 5) = 0!
+
+      // 2. In searchCatalog with inStock=true: product must be excluded!
+      const inStockRes = await searchCatalog({ inStock: true, q: reservedSku });
+      const foundInStock = inStockRes.items.find((i) => i.skus.includes(reservedSku));
+      expect(foundInStock).toBeUndefined();
+
+      // 3. In ordinary catalog searchCatalog without inStock filter: product is found with totalStock = 0
+      const generalRes = await searchCatalog({ q: reservedSku });
+      const foundGeneral = generalRes.items.find((i) => i.skus.includes(reservedSku));
+      expect(foundGeneral).toBeDefined();
+      expect(foundGeneral?.totalStock).toBe(0);
     });
   });
 });
